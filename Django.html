@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Django</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <Main>
+        <h1>Django</h1>
+        <p>A cheat sheet for setting up Django.</p>
+        <section>
+            <h2>Installing a Virtual Environment</h2>
+            <p>In Python installing a virtual environment is easy.</p>
+            <code>pip install virtualenv</code>
+        </section>
+        <section>
+            <h2>Installing a Virtual Environment Wrapper</h2>
+            <p>After we install a virtual environment, we need to install an enviroment wrapper.</p>
+            <code>pip install virtualenvwrapper-win</code>
+        </section>
+        <section>
+            <h2>Make a Virtual Environment</h2>
+            <p>To Make a vurtual environment:</p>
+            <code>mkvirtualenv NameEnv</code>
+        </section>
+        <section>
+            <h2>Connecting the Project with the Environment</h2>
+            <p>Create a directory with the same name as the virtual environment: NameEnv.</p>
+            <code>mkdir NameEnv</code>
+            <p>NameEnv will be the root folder of the project.</p>
+            <p>Bind our virtual environment with our current working directory.</p>
+            <code>setprojectdir</code>
+        </section>
+        <section>
+            <h2>Activate the Environment</h2>
+            <p>To activate the environment:</p>
+            <code>workon NameEnv</code>
+        </section>
+        <section>
+            <h2>Deactivate the Environment</h2>
+            <p>To exit the environment:</p>
+            <code>deactivate</code>
+        </section>
+        <section>
+            <h2>Installing Django</h2>
+            <p>To install Django activate the environment.</p>
+            <code>workon NameEnv</code>
+            <p>Now install Django:</p>
+            <code>pip install django</code>
+            <p>Check Django version:</p>
+            <code>python -m django -- version</code>
+        </section>
+        <section>
+            <h2>Listing Admin Commands</h2>
+            <p>To list admin commands:</p>
+            <code>django-admin</code>
+        </section>
+        <section>
+            <h2>Create the Project</h2>
+            <p>To create a new Django project:</p>
+            <code>django-admin startproject nameProject</code>
+        </section>
+        <section>
+            <h2>Move into the Project</h2>
+            <p>To move into the project:</p>
+            <code>cd nameProject</code>
+        </section>
+        <section>
+            <h2>Django Project Directory</h2>
+            <p>At the base directory level:</p>
+            <p><code>nameProject</code></p>
+            <p><code>manage.py</code></p>
+            <p>Manage.py is what let's us run command line commands.</p>
+            <p>Under the nameProject directory:</p>
+            <p><code>__inti__.py</code></p>
+            <p><code>settings.py</code></p>
+            <p><code>urls.py</code></p>
+            <p><code>wsgi.py</code></p>
+        </section>
+        <section>
+            <h2>urls.py</h2>
+            <p>This is where we setup the mapping.</p>
+            <p>An example of one path pattern.</p>
+            <p><code>urlpatterns = [ path('admin/', admin.site.urls),]</code></p>
+        </section>
+        <section>
+            <h2>Creating a New App</h2>
+            <p>To create a new app:</p>
+            <p><code>python manage.py startapp AppName</code></p>
+        </section>
+        <section>
+            <h2>In views.py</h2>
+            <p>It has already imported render for us.</p>
+            <p><code>from django.shortcuts import render</code></p>
+            <p>Add HttpResponse:</p>
+            <p><code>from django.http import HttpResponse</code></p>
+            <p>create a function called home this functio will take in a request argument:</p>
+            <p><code>def home(request):</code></p>
+            <p><code>return HttpResponse('&lth1&gtBlog Home&lt/h1&gt')</code></p>
+            <p><code>def about(request):</code></p>
+            <p><code>return HttpResponse('&lth2&gtBlog About&lt/h2&gt')</code></p>
+        </section>
+        <section>
+            <h2>Create a Url Module</h2>
+            <p>Whitin our blog app dirctory create a new file named urls.py.</p>
+            <p><code>from django.urls import path/code></p>
+            <p><code>from . import views</code></p>
+            <p><code>urlpattersn = [</code></p>
+            <p>To make home path leave '' blank.</p>
+            <p><code>path('', views.home, name = 'blog-home'),</code></p>
+            <p><code>path('about/', views.about, name = 'blog-about'),</code></p>
+            <p><code>]</code></p>
+        </section>
+        <section>
+            <h2>In Our Project urls.py File</h2>
+            <p><code>from django.contrib import admin</code></p>
+            <p>To map to are blog urls we need to import another function form django urls, and that is the include function.</p>
+            <p><code>from django.urls import path, include</code></p>
+            <p><code>urlpatterns = [</code></p>
+            <p><code>path('admin/', admin.site.urls)</code></p>
+            <p><code>path('blog/', include('blog.urls')),</code></p>
+            <p>To make home page leave out:</p>
+            <p><code>path('' include('blog.urls')),</code></p>
+        </section>
+        <section>
+            <h2>How to Make Templates</h2>
+            <p>Within the app folder create a templates folder, then create a folder with the same name as your app.</p>
+            <h3>Home Page Example Template - home.html</h3>
+            <p><code>&lt!DOCTYPE html&gt</code></p>
+            <p><code>&lthtml&gt</code></p>
+            <p><code>&lthead&gt</code></p>
+            <p><code>&lttitle&gtPage Title&lt/title&gt</code></p>
+            <p><code>&lt/head&gt</code></p>
+            <p><code>&ltbody&gt</code></p>
+            <p><code>&lth2&gtBlog home!&lt/h2&gt</code></p>
+            <p><code>&lt/body&gt</code></p>
+            <p><code>&lt/html&gt</code></p>
+        </section>
+        <section>
+            <h2>Add Blog Application to List of Installed Apps</h2>
+            <p>To add our application to that list, add our app congiguration to our project settings.py module.</p>
+            <p>Our app configuration is located in side of app.py file. Copy ProjectConfig.</p>
+            <p>Oppen settings.py file and scroll down until you see Installed_Apps</p>
+            <p>At the top add a path to the appconfiguration.</p>
+            <p><code>'project.apps.projectconfig',</code></p>
+        </section>
+        <section>
+            <h2>Use the Template</h2>
+            <p>In order to use the template we have to point our project view to use the template.</p>
+            <p>Need this line of code.<p><code>from django.shortcuts import render</code></p>
+            <p>Now we can return a render template.</p><p><code>def home(request):</code></p>
+        <p><code>return render(request, TemplateName ex. 'blog/home.html')</code></p>
+        </section>
+        <section>
+            <h2>Passing Data To Our Template</h2>
+            <p>To pass in data we pass in an argument. ex. contect.</p>
+            <p><code>def home(request):</code></p>
+            <p><code>context = {'posts': posts}</code></p>
+            <p><code>return render(request, 'blog/home.html', context)</code></p>
+            <p>This will pass that data into are template, and we can access it in the template.</p>
+            <p>In our home template, we need to loop through the data in order to display it. To right a for block.</p>
+            <p><code>&ltbody&gt</code></p>
+            <p><code>{% for post in posts %}</code></p>
+            <p>To access a varible use double {{}}</p>
+            <p><code>&lth1&gt{{ post.title}}&lt/h1&gt</code></p>
+            <p><code>&ltp&gtBy {{post.author}} on {{post.date_posted}}&lt/p&gt</code></p>
+            <p><code>&ltp&gt{{post.content}}&lt/p&gt</code></p>
+            <p>Must have end for statement.</p>
+            <p><code>{% endfor %}</code></p>
+            <p><code>&ltbody&gt</code></p>
+        </section>
+        <section>
+            <h2>If Else</h2>
+            <p>Code for put if else statement in our template.</p>
+            <p><code>&lthead&gt</code></p>
+            <p><code>{% if title %}</code></p>
+            <p><code>&lttitle&gtDjango Blog - {{title}}&lt/title&gt</code></p>
+            <p><code>{% else %}</code></p>
+            <p><code>&lttitle&gtDjango Blog&lt/title&gt</code></p>
+            <p>need to end if statement.</p>
+            <p><code>{% endif %}</code></p>
+            <p><code>&lt/head&gt</code></p>
+        </section>
+        <section>
+            <h2>Template Inheritance</h2>
+            <p>Create a base template file. base.html Take out all the repeted section in our home and about pages. Create a block for the different content.</p>
+            <p><code>&ltbody&gt</code></p>
+            <p><code>{% block content %} {% endblock %}</code></p>
+            <p><code>&lt/body&gt</code></p>
+            <p>In the home page remove everything that is in the base.html file. Add the following code</p>
+            <p><code>{% extedns "blog/base.html" %}</code></p>
+            <p><code>{% block content %}</code></p>
+            <p><code>{% endblock content %}</code></p>
+        </section>
+        <section>
+            <h2>Adding Bootstrap</h2>
+            <p>Go to <a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/#starter-template">Getbootstarp</a> </p>
+            <p>Add the code to the base.html file.</p>
+        </section>
+        <section>
+            <h2>CSS Files</h2>
+            <p>Need to be located in a static directory. Within our blog app right click blog and create a new folder called static. Inside of static create another folder with the same name as the app. ex static > blog > main.css</p>
+            <p>To use the css file go back into base.html and add some code.</p>
+            <p>At the top of the page put.</p>
+            <p><code>{% load static %}</code></p>
+            <p>Above title add the css</p>
+            <p><code>&ltlink rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}"&gt</code></p>
+        </section>
+        <section>
+            <h2>Url for Navigation</h2>
+            <p>Instead of hardcode navigation paths use urls. ex. code</p>
+            <p><code>href="{% url 'blog-home' %}"</code></p>
+            <p>instead of </p>
+            <p><code>href="/" Home</code></p>
+        </section>
+        <section>
+            <h2>Admin Page</h2>
+            <p>To login to the admin page you need to create a superuser. In the command prompt type the following command.</p>
+            <p><code>python manage.py makemigrations</code></p>
+            <p><code>python manage.py migrate</code></p>
+            <p><code>python manage.py createsuperuser</code></p>
+            <p><code>Username: Enter user name</code></p>
+            <p><code>Email address: Enter email address</code></p>
+            <p><code>Password: Enter a password</code></p>
+            <p><code>Password (again): Re-Enter password</code></p>
+        </section>
+        <section>
+            <h2>Creating Our Own database Tables</h2>
+            <P>Django has a built in ORM.</P>
+            <p>With in are app Django has already created models.py file. Django already included models. We are going to create a post table.</p>
+            <p><code>from django.db import models</code></p>
+            <p><code>class Post(models.Model):</code></p>
+            <p><code>title = models.CharField(max_length = 100)</code></p>
+            <p><code>content = models.TextField()</code></p>
+            <p><code>date_posted = models.DateTimeField(auto_now_add = True -set date time to date and time when created-) - if used can't change so not using here.</code></p>
+            <p><code>-using- date_posted = models.DateTimeField(default = timezone.now)</code></p>
+            <p><code>-for the above code harve add import statement- from django.utils import timezone</code></p>
+            <p>To include the author, we have to add another import statement.</p>
+            <p><code>from django.contrib.auth.models import User</code></p>
+            <p><code>author = models.ForeignKey(User, on_delete = models.CASCADE)</code></p>
+            <p>We need to update the database</p>
+            <p><code>python manage.py makemigrations</code></p>
+            <p>The view the sql code.</p>
+            <p><code>python manage.py sqlmigrate blog 0001</code></p>
+            <p>Now lets run the migrate command</p>
+            <p><code>python manage.py migrate</code></p>
+            <p>Django ORM lets us querry the database through the classes. We can do this by running the shell</p>
+            <p><code>python manage.py shell</code></p>
+            <p><code>(InteractiveConsole)</code></p>
+            <p><code>&gt&gt&gt</code></p>
+            <p>Import our post model</p>
+            <p><code>from blog.models import Post</code></p>
+            <p>Import User model</p>
+            <p><code>from django.contrib.auth.models import User</code></p>
+            <p>To get all the Users</p>
+            <p><code>User.objects.all()</code></p>
+            <p>To get the first user</p>
+            <p><code>User.objects.first()</code></p>
+            <p>To get the last user</p>
+            <p><code>User.objects.last()</code></p>
+            <p>To filter the users</p>
+            <p><code>User.objects.filter(username='username')</code></p>
+            <p>You can use first with filter to return the first result.</p>
+            <p><code>User.objects.filter(username='username').first</code></p>
+            <p>You can capture information in a variable.</p>
+            <p><code>user = User.objects.filter(username='username').first</code></p>
+            <p>To access the information.</p>
+            <p><code>user</code></p>
+            <p><code>user.id</code></p>
+            <p><code>user.pk</code></p>
+            <p>Another way to capture the information is with get.</p>
+            <p><code>user = User.objects.get('id=1')</code></p>
+            <p><code>user</code></p>
+            <p>To create a post</p>
+            <p><code>post_1 = Post(title='Blog 1', content='First Post Content!', author=user)</code></p>
+            <p><code>post_1.save()</code></p>
+            <p><code>Post.objects.all()</code></p>
+            <p>Create a dunder method.</p>
+            <p>Exit the shell.</p>
+            <p><code>exit()</code></p>
+            <p>Reopen the shell</p>
+            <p>python manage.py shell</p>
+            <p>Reimport post and user models</p>
+            <p><code>from blog.models import Post</code></p>
+            <p><code>from django.contrib.auth.models import User</code></p>
+            <p><code>user = User.objects.get(id=1)</code></p>
+            <p><code>post_2 = Post(title='Blog 2', content='Second Post Content', author_id=user.id)</code></p>
+            <p>Working on vidoe 5</p>
+        </section>
+        <section>
+            <h2>Link To Git</h2>
+            <p>In VS Code open up Terminal. In the terminal type the following code:</p>
+            <p><code>git init</code></p>
+        </section>
+        <section>
+            <h2>Dunder STR Method</h2>
+            <p>In are models.py file we want to create a dunder str method.</p>
+            <p><code>def __str__(self)</code></p>
+            <p><code>return self.title</code></p>
+        </section>
+    </Main>
+</body>
+</html>
