@@ -289,7 +289,40 @@
             <p><code>from django.contrib.auth.models import User</code></p>
             <p><code>user = User.objects.get(id=1)</code></p>
             <p><code>post_2 = Post(title='Blog 2', content='Second Post Content', author_id=user.id)</code></p>
-            <p>Working on vidoe 5</p>
+            <h3>Access Content of Post</h3>
+            <p><code>post = Post.objects.first()</code></p>
+            <p><code>post.content</code></p>
+            <p>Let's see if the date was saved.</p>
+            <p><code>post.date_posted</code></p>
+            <p>To get the user.</p>
+            <p><code>post.author</code></p>
+            <p>To get the users email.</p>
+            <p><code>post.author.email</code></p>
+            <p>To get all post by a user Django uses a special quarry set to the User model.</p>
+            <p>The code for the quarry is:</p>
+            <p><code>user.post_set</code></p>
+            <p>The code to get all of the Users posts is:</p>
+            <p><code>user.post_set.all()</code></p>
+            <p>We can use this post_set to create a post by the user.</p>
+            <p><code>user.post_set.create(title='Blog 3', content='Third Post Content!')</code></p>
+            <p>The abouve code wil use the user as the author and will automatically save the post.</p>
+            <h3>Let Use This Data Instead of the Dummy Data</h3>
+            <p>Open up blog views.py</p>
+            <p>At the top we need to import post</p>
+            <p><code>from .models import Post</code></p>
+            <p>With in the context section let's quarry the post.</p>
+            <p><code>context = { 'posts': Post.objects.all() }</code></p>
+            <p>Open up the home template page</p>
+            <p>In the date section add a date filter.</p>
+            <p><code>{post.date_posted|date:"F d, Y"}</code></p>
+            <p>Now in the view remove the dummy data.</p>
+            <h3>Let Edit this Post Data with in the Admin Area of our site</h3>
+            <p>Open up the admin.py file in our blog app.</p>
+            <p>We need to regiter our models</p>
+            <p>Up at the top add this code:</p>
+            <p><code>from .models import Post</code></p>
+            <p>Under register your models here add:</p>
+            <p><code>admin.site.register(Post)</code></p>
         </section>
         <section>
             <h2>Link To Git</h2>
@@ -301,6 +334,7 @@
             <p>In are models.py file we want to create a dunder str method.</p>
             <p><code>def __str__(self)</code></p>
             <p><code>return self.title</code></p>
+            <p>Start video 6</p>
         </section>
     </Main>
 </body>
