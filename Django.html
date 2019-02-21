@@ -334,7 +334,61 @@
             <p>In are models.py file we want to create a dunder str method.</p>
             <p><code>def __str__(self)</code></p>
             <p><code>return self.title</code></p>
-            <p>Start video 6</p>
+        </section>
+        <section>
+            <h1>Part 6 - User Registration</h1>
+            <ol>
+            <li>We will create a new app inside of are project for Users to signup to our site.</li>
+            <li>In the command promt we need to be at the project directory. This will be where the manage.py file is.</li>
+            <li>The code to create the new app is:</li>
+            <li><code>python manage.py startapp users</code></li>
+            <li>When we first create an app, we need to add it to our installed apps list in our project settings.</li>
+            <p>Look in user app.py for the name of the user class. It will be something like UserConfig.</li>
+            <li>In the project setting.py file under installed_apps and the following code:</li>
+            <li><code>'users.apps.UsersConfig',</code></li>
+            <li>In the user view.py file, we need to create a register view.</li>
+            <li><code>def register(request):</code></li>
+            <li>Up at the top we will use django user register form. Add the following code:</li>
+            <li><code>from django.contrib.auth.forms import UserCreationForm</code></li>
+            <li>Under the def register, we need to create an instance of the UserCreationForm.</li>
+            <li><code>form = UserCreationForm()</code></li>
+            <li>We now need to return the renderd page. We have not created the users register.html template page yet.</li>
+            <li><code>return render(request, 'users/register.html', {'form': form})</code></li>
+            <li>In our user app create a new folder and call it templates.</li>
+            <li>In the templates folder create a sub dirctory named users.</li>
+            <li>We will extend our blog apps base html in register.</li>
+            <li><code>{% extends "blog/base.html"%}</code></li>
+            <li><code>{% block content%}</code></li>
+            <li>Now we will add a div with a class that is in our css file.</li>
+            <li><code>&ltdiv class="content-section"&gt</code></li>
+            <li>With in the div we will create a form with a metnod = to Post</li>
+            <li><code>&ltform method="POST"&gt</code></li>
+            <li>With in the form we need to add a csrf token for cross site forgery</li>
+            <li><code>{% csrf_token %}</code></li>
+            <li>Put in a fieldset tag to group related items.</li>
+            <li><code>&ltfieldset class="form-group"&gt</code></li>
+            <li>Add a caption to our fieldset of Join Today</li>
+            <li><code>&ltlegend class="border-bottom mb-4"&gtJoin Today&lt/legend&gt</code></li>
+            <li>Now to print out our form we add the following code.</li>
+            <li><code>{{ form }}</code></li>
+            <li><code>&lt/fieldset&gt</code></li>
+            <li>After our fieldset we need to add a submit button. We will put this in a div.</li>
+            <li><code>&ltdiv class="form-group"&gt</code></li>
+            <li><code>&ltbutton class="btn btn-outline-info" type="submit"&gtSign Up&lt/button&gt</code></li>
+            <li><code>&lt/div&gt</code></li>
+            <li><code><&lt/form&gt</code></li>
+            <li>Under the form we need to add a sign in for people that have already registered.</li>
+            <li><code>div class="border-top pt-3"</code></li>
+            <li><code>&ltsmall class="text-muted"&gtAlready Have An Account? &lta class="ml-2" href="#"&gtSign In&lt/a&gt&lt/small&gt</code></li>
+            <li>For now we will create a url pattern for the register page the project url.py model.</li>
+            <li>At the top under the other imports add the following code:</li>
+            <li><code>from users import views as user_views</code></li>
+            <li>Uder the admin url add the following code:</li>
+            <li><code>path('register/', user_view.register, name='register'),</code></li>
+            <li>To make the form look better go back into the register template and change the code to the following.</li>
+            <li><code>{{ form.as_p }}</code></li>
+            <p>video 6 @1700</p>
+            </ol>
         </section>
     </Main>
 </body>
