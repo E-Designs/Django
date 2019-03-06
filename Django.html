@@ -387,7 +387,64 @@
             <li><code>path('register/', user_view.register, name='register'),</code></li>
             <li>To make the form look better go back into the register template and change the code to the following.</li>
             <li><code>{{ form.as_p }}</code></li>
-            <p>video 6 @1700</p>
+            <li>Go to User view.py. Check to see if we get a post request. Under register(request) add the following code:</li>
+            <li><code>if request.method == 'POST':</code></li>
+            <li><code>form = UserCreationForm(request.POST)</code></li>
+            <li>Validate the form with the following code:</li>
+            <li><code>if form.is_valid():</code></li>
+            <li><code>username = form.cleaned_data.get('username')</code></li>
+            <li>At the top add import</li>
+            <li><code>from djangor.contrib import messages</code></li>
+            <li>Under the line of code form.cleaned type the folloing code:</li>
+            <li><code>messages.success(request, f'Account created for {username}!')</code></li>
+            <li>At the top change the import statement to:</li>
+            <li><code>from django.shortcuts import render, redirect</code></li>
+            <li>Under the message add the following code:</li>
+            <li><code>return redirect('blog-home')</code></li>
+            <li><code>else:</code></li>
+            <li><code>form = UserCreationForm()</code></li>
+            <li>In side our base template we need to and a space for flash messages. Above are content block we need to add the following code:</li>
+            <li><code>{% if messages%}</code></li>
+            <li><code>{% for message in messages %}</code></li>
+            <li><code>&gtdiv class="alert alert-{{ message.tags}}"&lt</code></li>
+            <li><code>{{ message }}</code></li>
+            <li><code>&gt/div&lt</code></li>
+            <li><code>{% endfor %}</code></li>
+            <li><code>{% endif %}</code></li>
+            <li>To save the user registration under the is_valid in our user view.py file we need to add the following code:</li>
+            <li><code>form.save()</code></li> 
+            <li>We need to let the user enter their email into the form</li>
+            <li>Under the user directory create a new file called forms.py</li>
+            <li>In the forms.py file add the following code:</li> 
+            <li><code>from django import forms</code></li>
+            <li>Next we need to import our users.</li>
+            <li><code>from django.contrib.auth.models import User</code></li>
+            <li>Next we need to import the Create user form:</li>
+            <li><code>from django.contrib.auth.forms import UserCreationForm</code></li>
+            <li>Create a UserRegisterForm class</li>
+            <li><code>class UserRegisterForm(UserCreationForm):</code></li>
+            <li>Now we want to add the email field to the form</li>
+            <li><code>email = forms.EmailField()</code></li>
+            <li>We need to specify to model that this form is going to interact with</li> 
+            <li><code>class Meta:</code></li>
+            <li><code>model = User</code></li> 
+            <li>Now we have to specify what fields our shown on the form and what order.</li>
+            <li><code>fields = ['username', 'email', 'password1', 'password2']</code></li>
+            <li>In the user view.py file we need to plug in the UserRegisterForm</li>
+            <li>We can get rid of the UserCreationForm import</li>
+            <li>In our function we need to replace the UserCreationForm with the UserRegisterForm</li>
+            <li>Add styling to our form we are going to use a third party django application called crispy forms</li>  
+            <li>Bring up the terminal and stop the server</li>
+            <li><code>pip install django-crispy-forms under users.apps.UsersConfig</code></li>
+            <li>In the settings.py file we need to plug in crispy_forms</li>
+            <li><code>'crispy_forms',</code></li>
+            <li>crispy_forms defaults to bootstrap 2, but that is old and outdate, we want to use bootstrap 4</li>
+            <li>Go to the bottom of the file and add the following code:</li>
+            <li><code>CRISPY_TEMPLATE_PACK = 'bootstrap4'</code></li>
+            <li>In the register.html file we need to load the crispy_forms. Put the code under the extends blog/base code.</li>
+            <li><code>{% load crispy_forms_tags %}</code></li>
+            <li>Remove the as.p method.</li> 
+            <li><code>{{ form|crispy }}</code></li>    
             </ol>
         </section>
     </Main>
