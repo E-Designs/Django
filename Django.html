@@ -336,7 +336,7 @@
             <p><code>return self.title</code></p>
         </section>
         <section>
-            <h1>Part 6 - User Registration</h1>
+            <h2>Part 6 - User Registration</h2>
             <ol>
             <li>We will create a new app inside of are project for Users to signup to our site.</li>
             <li>In the command promt we need to be at the project directory. This will be where the manage.py file is.</li>
@@ -445,6 +445,50 @@
             <li><code>{% load crispy_forms_tags %}</code></li>
             <li>Remove the as.p method.</li> 
             <li><code>{{ form|crispy }}</code></li>    
+            </ol>
+        </section>
+        <section>
+            <h2>Part 7 - Login and Loogout</h2>
+            <ol>
+                <li>We will start by using the default login views. Open up the project url file. Whit in this file we need to import some views. Under from django.contrib add the following code:</li>
+                <li><code>from django.contrib.auth import views as auth_views</code></li>
+                <li>Now we will create a login view path. Under user_views we will add the following code.</li>
+                <li><code>path('login/', auth_views.LoginView.as_view(), name='login'),</code></li>
+                <li>Next we will create a logout view.</li>
+                <li><code>path('logout/', auth_views.LogoutView.as_view(), name='logout'),</code></li>
+                <li>We will tell django to look for login and logout templates in our user folder.</li>
+                <li><code>path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),</code></li>
+                <li><code>path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),</code></li>
+                <li>Now we will create the login template inside the user file.</li>
+                <li>Inside the user folder create login.html file.</li>
+                <li>
+                    <ol>
+                        <li><code>{% extends "blog/base.html" %}</code></li>
+                        <li><code>{% load crispy_forms_tags %}</code></li>
+                        <li><code>{% block content%}</code></li>
+                        <li><code>&ltdiv class="content-section"&gt</code></li>
+                        <li><code>&ltform method="POST"&gt</code></li>  
+                        <li><code>{% csrf_token %}</code></li>
+                        <li><code>&ltfieldset class="form-group"&gt</code></li> 
+                        <li><code>&ltlegend class="border-bottom mb-4"&gtLog In&lt/legend&gt</code></li>
+                        <li><code>{{form|crispy}}</code></li>
+                        <li><code>&lt/fieldset&gt</code></li> 
+                        <li><code>&ltdiv class="form-group"&gt</code></li> 
+                        <li><code>&ltbutton class=" btn btn-outline-info" type="submit"&gtLogin&lt/button&gt</code></li>
+                        <li><code>&lt/div&gt</code></li> 
+                        <li><code>&lt/form&gt</code></li> 
+                        <li><code>&ltdiv class="border-top pt-3"&gt</code></li> 
+                        <li><code>&ltsmall class="text-muted"&gt</code></li> 
+                        <li><code>Need An Acount? &lta class="ml-2" href="{% url 'register' %}"&gtSign Up Now&lt/a&gt</code></li> 
+                        <li><code>&lt/small&gt</code></li> 
+                        <li><code>&lt/div&gt</code></li>
+                        <li><code>&gt/div&lt</code></li> 
+                        <li><code>{% endblock content%}</code></li>
+                    </ol>
+                </li>
+                <li>When a user login we want them to go to the Home page. To do this we need to go to the project settings file add the following code:</li>
+                <li><code>LOGIN_REDIRECT_URL = 'blog-home'</code></li>
+                <li>Working on video 7 @ ll:23</li>
             </ol>
         </section>
     </Main>
