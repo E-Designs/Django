@@ -608,6 +608,48 @@
                     <p><code>from .models import Profile</code></p>
                     <p><code>admin.site.register(Profile)</code></p>
                 </li>
+                <li>
+                    To work with the picture we can use the shell.
+                    <ol>
+                        <li>
+                            To open the Shell:
+                            <p><code>python manage.py shell</code></p>
+                        </li>
+                        <li>
+                            To work with the User photo we need to import the User to the shell:
+                            <p><code>from django.contrib.auth.models import User</code></p>
+                        </li>
+                        <li>
+                            We need to get a user to work with:
+                            <p><code>user = User.objects.filter(username = 'username').first()</code></p>
+                        </li>
+                        <li>
+                            To see the user:
+                            <p><code>user</code></p>
+                        </li>
+                        <li>
+                            To see the user profile:
+                            <p><code>user.profile</code></p>
+                        </li>
+                        <li>
+                            To see the user image information:
+                            <p><code>user.profile.images</code></p>
+                        </li>
+                        <li>
+                            To get the image width:
+                            <p><code>user.profile.image.width</code></p>
+                        </li>
+                        <li>
+                            To get the image url:
+                            <p><code>user.profile.image.url</code></p>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Create a media directory. Open settings.py file:
+                    <p><code>MEDIA_ROOT = os.path.join(BASE_DIR, 'media')</code></p>
+                    <p><code>MEDIA_URL = '/media/'</code></p>
+                </li>
             </ol>
         </section>
     </Main>
