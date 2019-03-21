@@ -572,7 +572,43 @@
         </section>
         <section>
             <h2>Part 8 - User Profile and Picture</h2>
-            <ol></ol>
+            <ol>
+                <li>We need to create a user profile model that has a one to one relationship with the user. We need to open the models.py file in the users folder. Extend the user model:
+                    <p><code>from django.contrib.auth.models import User</code></p>
+                </li>
+                <li>Create the new user class:
+                    <p><code>class Profile(models.Model):</code></p>
+                </li>
+                <li>
+                    Create the one to one relationship:
+                    <p><code>user = models.OneToOneField(User, on_delete = models.CASCADE)</code></p>
+                </li>
+                <li>
+                    Now create an image field:
+                    <p><code>image = models.ImageField(default = 'default.jpg', upload_to = 'profile_pics')</code></p>
+                </li>
+                <li>
+                    Create a dunder str function to control how we want the profile to printout:
+                    <p><code>def __str__(self):</code></p>
+                    <p><code>return f'{self.user.username} Profile'</code></p>
+                </li>
+                <li>Install pillow to work with photos, from the command line in the project directory:
+                    <p><code>pip install Pillow</code></p>
+                </li>
+                <li>
+                    Make migrations file in the command line:
+                    <p><code>python manage.py makemigrations</code></p>
+                </li>
+                <li>
+                    Update the database:
+                    <p><code>python manage.py migrate</code></p>
+                </li>
+                <li>
+                    We need to register the profile with the user admin.py file:
+                    <p><code>from .models import Profile</code></p>
+                    <p><code>admin.site.register(Profile)</code></p>
+                </li>
+            </ol>
         </section>
     </Main>
 </body>
