@@ -650,7 +650,116 @@
                     <p><code>MEDIA_ROOT = os.path.join(BASE_DIR, 'media')</code></p>
                     <p><code>MEDIA_URL = '/media/'</code></p>
                 </li>
+                <li>
+                    Log into the admin page and delete the profiles that are already created.
+                </li>
+                <li>
+                    Recreate the profiles.
+                </li>
+                <li>
+                    Delete the old profile picture directory.
+                </li>
+                <li>
+                    Modify profile.html: 
+                    <ol>
+                        <li><code>
+                                {% extends "blog/base.html" %}
+                        </code></li>
+                        <li><code>    
+                                {% block content %}
+                        </code></li>
+                        <li><code>
+                                &ltdiv class="content-section"&gt
+                        </code></li>
+                        <li><code>
+                                &ltdiv class="media"&gt
+                        </code></li>
+                        <li><code>
+                                &ltimg class="rounded-circle account-img" src="{{ user.profile.image.url }}"&gt
+                        </code></li>
+                        <li><code>
+                                &ltdiv class="media-body"&gt
+                        </code></li>
+                        <li><code>
+                                &lth2 class="account-heading"&gt{{ user.username }}&lt/h2&gt
+                        </code>></li>
+                        <li><code>
+                                &ltp class="text-secondary"&gt{{ user.email }}&lt/p&gt
+                        </code></li>
+                        <li><code>
+                                &lt/div&gt
+                        </code></li>
+                        <li><code>
+                                &lt/div&gt
+                        </code></li>
+                        <li><code>
+                                &lt/div&gt
+                        </code></li>
+                        <li><code>
+                                {% endblock content %}
+                        </code></li>
+                    </ol>
+                </li>
+                <li>
+                    Open url.py:
+                    <ol>
+                        Add the following code to the import statements:
+                        <li><code>
+                            from django.conf import settings
+                        </code></li>
+                        <li><code>
+                            from django.conf.urls.static import static
+                        </code></li>
+                    </ol>
+                    <ol>
+                        Add the following code under urlpatterns:
+                        <li><code>
+                            if settings.DEBUG:
+                        </code></li>
+                        <li><code>
+                            urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+                        </code></li>
+                    </ol>
+                </li>
+                <li>
+                    Open up the media file and copy a default photo into the folder.
+                </li>
+                <li>Every new user that is created should automatically get a profile.
+                    <ol>
+                        <li>
+                            In the user app create a new file called signal.py
+                            <ol>
+                                <li><code>from django.db.models.signals import post_save</code></li>
+                                <li><code>from django.contrib.auth.models import User</code></li>
+                                <li><code>from django.dispatch import receiver</code></li>
+                                <li><code>from .models import Profile</code></li>
+                                <br> 
+                                <li><code>@receiver(post_save, sender = User)</code></li>
+                                <li><code>def create_profile(sender, instance, created, **kwargs):</code></li>
+                                <li><code>if created:</code></li>
+                                <li><code>Profile.objects.create(user = instance)</code></li>
+                                 <br>       
+                                <li><code>@receiver(post_save, sender=User)</code></li>
+                                <li><code>def save_profile(sender, instance, **kwargs):</code></li>
+                                <li><code>instance.profile.save()</code></li>
+                            </ol>
+                        </li>
+                        <li>
+                            In side the user apps.py file we need to create a ready function in the UserConfig class.
+                            <ol>
+                                <li><code>class UsersConfig(AppConfig):</code></li>
+                                <li><code>name = 'users'</code></li>
+                                <br>
+                                <li><code>def ready(self)</code></li>
+                                <li><code>import users.signals</code></li>
+                            </ol> 
+                        </li>
+                    </ol>
+                </li>
             </ol>
+        </section>
+        <section>
+            <h2>Part 9 - Update User Profile</h2>
         </section>
     </Main>
 </body>
